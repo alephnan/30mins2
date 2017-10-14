@@ -3,12 +3,12 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-function getEdgeKey(edge) {
+export function getEdgeKey(edge) {
   const { from, to } = edge;
   return `${from}_${to}`;
 }
 
-export default new Vuex.Store({
+export const store = new Vuex.Store({
   state: {
     count: 0,
     nodes: {

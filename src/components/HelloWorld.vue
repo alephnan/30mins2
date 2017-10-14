@@ -41,7 +41,7 @@
 
 <script>
 import vis from 'vis';
-import store from '../store';
+import { store, getEdgeKey } from '../store';
 
 export default {
   name: 'HelloWorld',
@@ -76,16 +76,21 @@ export default {
       const id = this.$data.nodeid;
       if (store.state.nodes[id]) {
         alert('Node already exists');
-      } else {
-        store.commit('addnode', id);
-        this.$data.nodeid = '';
+        return;
       }
+      store.commit('addnode', id);
+      this.$data.nodeid = '';
     },
     addEdge() {
       const payload = {
         from: this.$data.edgefrom.toString(),
         to: this.$data.edgeto.toString(),
       };
+      // TODO(alephNaN): use getters
+      if (store.state.edges[getEdgeKey(payload)]) {
+        alert('Edge already exists');
+        return;
+      }
       store.commit('addedge', payload);
       this.$data.edgefrom = '';
       this.$data.edgeto = '';
