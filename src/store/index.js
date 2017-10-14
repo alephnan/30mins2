@@ -27,25 +27,26 @@ export default new Vuex.Store({
   mutations: {
     addnode(state, nodeid) {
       const id = nodeid.toString();
-      state.nodes[id] = { id, label: id };
+      Vue.set(state.nodes, id, { id, label: id });
       state.upToDate = false;
     },
     addedge(state, payload) {
       const key = getEdgeKey(payload);
       const { from, to } = payload;
-      state.edges[key] = { from, to };
+      Vue.set(state.edges, key, { from, to });
       state.upToDate = false;
     },
     increment(state) {
       state.count++;
     },
     deletenode(state, nodeid) {
-      delete state.nodes[nodeid.toString()];
+      const key = nodeid.toString();
+      Vue.delete(state.nodes, key);
       state.upToDate = false;
     },
     deleteedge(state, payload) {
       const key = getEdgeKey(payload);
-      delete state.edges[key];
+      Vue.delete(state.edges, key);
       state.upToDate = false;
     },
     updatedGraph(state) {
