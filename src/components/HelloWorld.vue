@@ -2,7 +2,6 @@
   <div class="hello">
     <md-tabs class="md-transparent" md-centered>
       <md-tab md-icon="share" md-label="Graph">
-        <button v-on:click="loadGraph">Load</button>
         <div id="graph">
         </div>
       </md-tab>
@@ -64,6 +63,9 @@ import { store, getEdgeKey } from '../store';
 
 export default {
   name: 'HelloWorld',
+  mounted() {
+    this.loadGraph();
+  },
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
