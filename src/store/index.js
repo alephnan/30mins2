@@ -6,12 +6,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     count: 0,
-    nodes: [
-      { id: 1, label: '1' },
-      { id: 2, label: '2' },
-      { id: 3, label: '3' },
-      { id: 4, label: '3' },
-    ],
+    nodes: {
+      1: { id: 1, label: '1' },
+      2: { id: 2, label: '2' },
+      3: { id: 3, label: '3' },
+      4: { id: 4, label: '3' },
+    },
     edges: [
       { from: 1, to: 3 },
       { from: 1, to: 2 },
@@ -21,14 +21,12 @@ export default new Vuex.Store({
   },
   mutations: {
     addnode(state, nodeid) {
-      const label = nodeid.toString();
-      state.nodes.push({ id: nodeid, label });
+      const id = nodeid.toString();
+      state.nodes[id] = { id, label: id };
       state.upToDate = false;
     },
     addedge(state, payload) {
       const { from, to } = payload;
-      console.log(`from: ${from}`);
-      console.log(`to: ${to}`);
       state.edges.push({ from, to });
       state.upToDate = false;
     },
@@ -36,7 +34,7 @@ export default new Vuex.Store({
       state.count++;
     },
     deletenode(state, nodeid) {
-      state.nodes = state.nodes.filter(({ id }) => id !== nodeid);
+      delete state.nodes[nodeid.toString()];
       state.upToDate = false;
     },
     deleteedge(state, edge) {

@@ -62,7 +62,9 @@ export default {
   },
   computed: {
     nodes() {
-      return store.state.nodes;
+      const temp = Object.values(store.state.nodes);
+      console.log(`temp:  ${temp}`);
+      return temp;
     },
     edges() {
       return store.state.edges;
@@ -86,6 +88,7 @@ export default {
       this.$data.edgeto = '';
     },
     deleteNode(node) {
+      console.log(JSON.stringify(node));
       store.commit('deletenode', node.id);
     },
     deleteEdge(edge) {
@@ -93,7 +96,7 @@ export default {
     },
     loadGraph() {
       const data = {
-        nodes: new vis.DataSet(store.state.nodes),
+        nodes: new vis.DataSet(Object.values(store.state.nodes)),
         edges: new vis.DataSet(store.state.edges),
       };
       const options = {
