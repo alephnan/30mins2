@@ -73,8 +73,13 @@ export default {
   },
   methods: {
     addNode() {
-      store.commit('addnode', this.$data.nodeid);
-      this.$data.nodeid = '';
+      const id = this.$data.nodeid;
+      if (store.state.nodes[id]) {
+        alert('Node already exists');
+      } else {
+        store.commit('addnode', id);
+        this.$data.nodeid = '';
+      }
     },
     addEdge() {
       const payload = {
@@ -86,7 +91,6 @@ export default {
       this.$data.edgeto = '';
     },
     deleteNode(node) {
-      console.log(JSON.stringify(node));
       store.commit('deletenode', node.id);
     },
     deleteEdge(edge) {
