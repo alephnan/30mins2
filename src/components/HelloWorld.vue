@@ -5,6 +5,7 @@
     <div id="graph">
     </div>
 
+    <!--<h1 v-if="outdated">Graph is outdated</h1>-->
     <h1>Nodes</h1>
     <ul>
       <li v-for="node in nodes">
@@ -38,12 +39,22 @@ export default {
       msg: 'Welcome to Your Vue.js App',
     };
   },
+  watch: {
+    outdated(outdated) {
+      if (outdated) {
+        this.loadGraph();
+      }
+    },
+  },
   computed: {
     nodes() {
       return store.state.nodes;
     },
     edges() {
       return store.state.edges;
+    },
+    outdated() {
+      return !store.state.upToDate;
     },
   },
   methods: {
@@ -62,6 +73,7 @@ export default {
       const container = document.getElementById('graph');
       const network = new vis.Network(container, data, options);
       console.log(network);
+      store.commit('updatedGraph');
     },
   },
 };

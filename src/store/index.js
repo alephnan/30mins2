@@ -17,6 +17,7 @@ export default new Vuex.Store({
       { from: 1, to: 2 },
       { from: 2, to: 4 },
     ],
+    upToDate: false,
   },
   mutations: {
     increment(state) {
@@ -24,9 +25,14 @@ export default new Vuex.Store({
     },
     deletenode(state, nodeid) {
       state.nodes = state.nodes.filter(({ id }) => id !== nodeid);
+      state.upToDate = false;
     },
     deleteedge(state, edge) {
       state.edges = state.edges.filter(({ from, to }) => from !== edge.from || to !== edge.to);
+      state.upToDate = false;
+    },
+    updatedGraph(state) {
+      state.upToDate = true;
     },
   },
 });
