@@ -15,6 +15,11 @@
         </button>
       </li>
     </ul>
+    <h2>Add node</h2>
+    <input v-model="nodeid" placeholder="node id">
+    <button @click="addNode()">
+        Add
+    </button>
 
     <h1>Edges</h1>
     <ul>
@@ -37,6 +42,7 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
+      nodeid: '',
     };
   },
   watch: {
@@ -58,6 +64,10 @@ export default {
     },
   },
   methods: {
+    addNode() {
+      store.commit('addnode', this.$data.nodeid);
+      this.$data.nodeid = '';
+    },
     deleteNode(node) {
       store.commit('deletenode', node.id);
     },

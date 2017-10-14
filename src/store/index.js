@@ -20,6 +20,11 @@ export default new Vuex.Store({
     upToDate: false,
   },
   mutations: {
+    addnode(state, nodeid) {
+      const label = nodeid.toString();
+      state.nodes.push({ id: nodeid, label });
+      state.upToDate = false;
+    },
     increment(state) {
       state.count++;
     },
