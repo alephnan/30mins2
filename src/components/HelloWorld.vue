@@ -30,6 +30,12 @@
         </button>
       </li>
     </ul>
+    <h2>Add Edge</h2>
+    <input v-model="edgefrom" placeholder="from">
+    <input v-model="edgeto" placeholder="to">
+    <button @click="addEdge()">
+        Add
+    </button>
   </div>
 </template>
 
@@ -43,6 +49,8 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       nodeid: '',
+      edgefrom: '',
+      edgeto: '',
     };
   },
   watch: {
@@ -67,6 +75,15 @@ export default {
     addNode() {
       store.commit('addnode', this.$data.nodeid);
       this.$data.nodeid = '';
+    },
+    addEdge() {
+      const payload = {
+        from: this.$data.edgefrom.toString(),
+        to: this.$data.edgeto.toString(),
+      };
+      store.commit('addedge', payload);
+      this.$data.edgefrom = '';
+      this.$data.edgeto = '';
     },
     deleteNode(node) {
       store.commit('deletenode', node.id);

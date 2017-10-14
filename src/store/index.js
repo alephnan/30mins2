@@ -25,6 +25,13 @@ export default new Vuex.Store({
       state.nodes.push({ id: nodeid, label });
       state.upToDate = false;
     },
+    addedge(state, payload) {
+      const { from, to } = payload;
+      console.log(`from: ${from}`);
+      console.log(`to: ${to}`);
+      state.edges.push({ from, to });
+      state.upToDate = false;
+    },
     increment(state) {
       state.count++;
     },
