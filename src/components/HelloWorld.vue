@@ -38,11 +38,19 @@
         <form novalidate @submit.stop.prevent="submit">
           <md-input-container>
             <label>From</label>
-            <md-input v-model="edgefrom"></md-input>
+            <md-autocomplete v-model="edgefrom" 
+                        :list="nodes"
+                        print-attribute="id"
+                        :debounce="500">
+            </md-autocomplete>
           </md-input-container>
           <md-input-container>
             <label>To</label>
-            <md-input v-model="edgeto"></md-input>
+            <md-autocomplete v-model="edgeto" 
+                        :list="nodes"
+                        print-attribute="id"
+                        :debounce="500">
+            </md-autocomplete>
           </md-input-container>
           <md-snackbar :md-position="'bottom left'" ref="snackbarAddedge" :md-duration="'2000'">
             <span>Adding edge</span>
