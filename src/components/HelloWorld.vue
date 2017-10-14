@@ -157,4 +157,8 @@ ul {
 a {
   color: #42b983;
 }
+
+#graph {
+  height: 600px;
+}
 </style>
