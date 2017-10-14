@@ -62,12 +62,10 @@ export default {
   },
   computed: {
     nodes() {
-      const temp = Object.values(store.state.nodes);
-      console.log(`temp:  ${temp}`);
-      return temp;
+      return Object.values(store.state.nodes);
     },
     edges() {
-      return store.state.edges;
+      return Object.values(store.state.edges);
     },
     outdated() {
       return !store.state.upToDate;
@@ -97,7 +95,7 @@ export default {
     loadGraph() {
       const data = {
         nodes: new vis.DataSet(Object.values(store.state.nodes)),
-        edges: new vis.DataSet(store.state.edges),
+        edges: new vis.DataSet(Object.values(store.state.edges)),
       };
       const options = {
         layout: {

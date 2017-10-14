@@ -3,6 +3,11 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+function getEdgeKey(edge) {
+  const { from, to } = edge;
+  return `${from}_${to}`;
+}
+
 export default new Vuex.Store({
   state: {
     count: 0,
@@ -10,13 +15,13 @@ export default new Vuex.Store({
       1: { id: 1, label: '1' },
       2: { id: 2, label: '2' },
       3: { id: 3, label: '3' },
-      4: { id: 4, label: '3' },
+      4: { id: 4, label: '4' },
     },
-    edges: [
-      { from: 1, to: 3 },
-      { from: 1, to: 2 },
-      { from: 2, to: 4 },
-    ],
+    edges: {
+      '1_3': { from: 1, to: 3 },
+      '1_2': { from: 1, to: 2 },
+      '2_4': { from: 2, to: 4 },
+    },
     upToDate: false,
   },
   mutations: {
@@ -26,8 +31,9 @@ export default new Vuex.Store({
       state.upToDate = false;
     },
     addedge(state, payload) {
+      const key = getEdgeKey(payload);
       const { from, to } = payload;
-      state.edges.push({ from, to });
+      state.edges[key] = { from, to };
       state.upToDate = false;
     },
     increment(state) {
@@ -37,8 +43,9 @@ export default new Vuex.Store({
       delete state.nodes[nodeid.toString()];
       state.upToDate = false;
     },
-    deleteedge(state, edge) {
-      state.edges = state.edges.filter(({ from, to }) => from !== edge.from || to !== edge.to);
+    deleteedge(state, payload) {
+      const key = getEdgeKey(payload);
+      delete state.edges[key];
       state.upToDate = false;
     },
     updatedGraph(state) {
