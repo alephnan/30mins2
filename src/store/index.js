@@ -7,10 +7,10 @@ export default new Vuex.Store({
   state: {
     count: 0,
     nodes: [
-      { id: 1, label: 'Node 1' },
-      { id: 2, label: 'Node 2' },
-      { id: 3, label: 'Node 3' },
-      { id: 4, label: 'Node 4' },
+      { id: 1, label: '1' },
+      { id: 2, label: '2' },
+      { id: 3, label: '3' },
+      { id: 4, label: '3' },
     ],
     edges: [
       { from: 1, to: 3 },
@@ -21,6 +21,9 @@ export default new Vuex.Store({
   mutations: {
     increment(state) {
       state.count++;
+    },
+    deletenode(state, nodeid) {
+      state.nodes = state.nodes.filter(({ id }) => id !== nodeid);
     },
   },
 });

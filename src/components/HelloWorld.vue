@@ -4,7 +4,15 @@
     <button v-on:click="loadGraph">Load</button>
     <div id="graph">
     </div>
-    {{count}}
+
+    <ul>
+      <li v-for="node in nodes">
+        <b>Node Id:</b> {{node.id}}
+         <button @click="deleteNode(node)">
+          Delete
+        </button>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -20,14 +28,15 @@ export default {
     };
   },
   computed: {
-    count() {
-      console.log(store.state.count);
-      return store.state.count;
+    nodes() {
+      return store.state.nodes;
     },
   },
   methods: {
+    deleteNode(node) {
+      store.commit('deletenode', node.id);
+    },
     loadGraph() {
-      store.commit('increment');
       const data = {
         nodes: new vis.DataSet(store.state.nodes),
         edges: new vis.DataSet(store.state.edges),
@@ -50,11 +59,6 @@ h1, h2 {
 ul {
   list-style-type: none;
   padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
 }
 
 a {
