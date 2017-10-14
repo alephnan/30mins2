@@ -4,11 +4,13 @@
     <button v-on:click="loadGraph">Load</button>
     <div id="graph">
     </div>
+    {{count}}
   </div>
 </template>
 
 <script>
 import vis from 'vis';
+import store from '../store';
 
 const nodes = new vis.DataSet([
   { id: 1, label: 'Node 1' },
@@ -29,7 +31,6 @@ const data = {
 };
 const options = {};
 
-
 export default {
   name: 'HelloWorld',
   data() {
@@ -37,13 +38,19 @@ export default {
       msg: 'Welcome to Your Vue.js App',
     };
   },
+  computed: {
+    count() {
+      console.log(store.state.count);
+      return store.state.count;
+    },
+  },
   methods: {
     loadGraph() {
+      store.commit('increment');
+      console.log(store.state.count);
       const container = document.getElementById('graph');
       const network = new vis.Network(container, data, options);
-      console.log(JSON.stringify(vis));
-      console.log(JSON.stringify(network));
-      console.log('hi');
+      console.log(network);
     },
   },
 };

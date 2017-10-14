@@ -6,9 +6,11 @@
 
 <script>
 import HelloWorld from './components/HelloWorld';
+import * as store from './store';
 
 export default {
   name: 'app',
+  store,
   components: {
     HelloWorld,
   },
