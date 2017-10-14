@@ -33,13 +33,20 @@
         </ul>
         <h2>Add node</h2>
         <form novalidate @submit.stop.prevent="submit">
-          <md-input-container>
-            <label>Node Id</label>
-            <md-input v-model="nodeid"></md-input>
-          </md-input-container>
-          <md-button class="md-icon-button md-raised md-accent" @click="addNode()">
-            <md-icon>add </md-icon>
-          </md-button>
+          <md-layout :md-gutter="20">
+            <md-layout :md-flex="10">
+              <md-input-container>
+                <label>Node Id</label>
+                <md-input v-model="nodeid"></md-input>
+              </md-input-container>
+            </md-layout>
+            <md-layout>
+              <md-button class="md-icon-button md-raised md-accent" @click="addNode()">
+                <md-icon>add </md-icon>
+              </md-button>
+            </md-layout>
+          </md-layout>
+          
           <md-snackbar :md-position="'bottom left'" ref="snackbarAddnode" :md-duration="'2000'">
             <span>Adding node</span>
             <md-button class="md-accent" md-theme="light-blue" @click="$refs.snackbar.close()">Dismiss</md-button>
@@ -55,30 +62,39 @@
         </ul>
         <h2>Add Edge</h2>
         <form novalidate @submit.stop.prevent="submit">
-          <md-input-container>
-            <label>From</label>
-            <md-autocomplete v-model="edgefrom" 
-                        :list="nodes"
-                        print-attribute="id"
-                        :debounce="500">
-            </md-autocomplete>
-          </md-input-container>
-          <md-input-container>
-            <label>To</label>
-            <md-autocomplete v-model="edgeto" 
-                        :list="nodes"
-                        print-attribute="id"
-                        :debounce="500">
-            </md-autocomplete>
-          </md-input-container>
+          <md-layout :md-gutter="20">
+            <md-layout :md-flex="10">
+              <md-input-container>
+                <label>From</label>
+                <md-autocomplete v-model="edgefrom" 
+                              :list="nodes"
+                              print-attribute="id"
+                              :debounce="500">
+                  </md-autocomplete>
+                </md-input-container>
+              </md-layout>
+              <md-layout :md-flex="10">
+                <md-input-container>
+                  <label>To</label>
+                  <md-autocomplete v-model="edgeto" 
+                              :list="nodes"
+                              print-attribute="id"
+                              :debounce="500">
+                  </md-autocomplete>
+                </md-input-container>
+              </md-layout>
+              <md-layout>
+                <md-button class="md-icon-button md-raised md-accent" @click="addEdge()">
+                  <md-icon>add</md-icon>
+                </md-button>
+              </md-layout>
+          </md-layout>
+
           <md-snackbar :md-position="'bottom left'" ref="snackbarAddedge" :md-duration="'2000'">
             <span>Adding edge</span>
             <md-button class="md-accent" md-theme="light-blue" @click="$refs.snackbar.close()">Dismiss</md-button>
           </md-snackbar>
         </form>
-        <md-button class="md-icon-button md-raised md-accent" @click="addEdge()">
-          <md-icon>add</md-icon>
-        </md-button>
       </md-tab>
     </md-tabs>
   </div>
