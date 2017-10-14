@@ -96,7 +96,11 @@ export default {
         nodes: new vis.DataSet(store.state.nodes),
         edges: new vis.DataSet(store.state.edges),
       };
-      const options = {};
+      const options = {
+        layout: {
+          randomSeed: 2,
+        },
+      };
       const container = document.getElementById('graph');
       const network = new vis.Network(container, data, options);
       console.log(network);
