@@ -5,8 +5,13 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import VueMaterial from 'vue-material';
+import 'vue-material/dist/vue-material.css';
 import HelloWorld from './components/HelloWorld';
 import { store } from './store';
+
+Vue.use(VueMaterial);
 
 export default {
   name: 'app',

@@ -4,38 +4,53 @@
     <button v-on:click="loadGraph">Load</button>
     <div id="graph">
     </div>
-
-    <!--<h1 v-if="outdated">Graph is outdated</h1>-->
+ 
     <h1>Nodes</h1>
     <ul>
       <li v-for="node in nodes">
-        <b>Node Id:</b> {{node.id}}
-         <button @click="deleteNode(node)">
-          Delete
-        </button>
+        <md-chip md-deletable @delete="deleteNode(node)">{{node.id}}</md-chip>
       </li>
     </ul>
     <h2>Add node</h2>
-    <input v-model="nodeid" placeholder="node id">
-    <button @click="addNode()">
-        Add
-    </button>
+    <form novalidate @submit.stop.prevent="submit">
+      <md-input-container>
+        <label>Node Id</label>
+        <md-input v-model="nodeid"></md-input>
+      </md-input-container>
+      <md-button class="md-icon-button md-raised md-accent" @click="addNode()">
+        <md-icon>add </md-icon>
+      </md-button>
+      <md-snackbar :md-position="'bottom left'" ref="snackbarAddnode" :md-duration="'2000'">
+        <span>Adding node</span>
+        <md-button class="md-accent" md-theme="light-blue" @click="$refs.snackbar.close()">Dismiss</md-button>
+      </md-snackbar>
+    </form>
+
 
     <h1>Edges</h1>
     <ul>
       <li v-for="edge in edges">
-        {{edge.from}} -> {{edge.to}}
-         <button @click="deleteEdge(edge)">
-          Delete
-        </button>
+        <md-chip md-deletable @delete="deleteEdge(edge)"> {{edge.from}} -> {{edge.to}}</md-chip>
       </li>
     </ul>
     <h2>Add Edge</h2>
-    <input v-model="edgefrom" placeholder="from">
-    <input v-model="edgeto" placeholder="to">
-    <button @click="addEdge()">
-        Add
-    </button>
+    <form novalidate @submit.stop.prevent="submit">
+      <md-input-container>
+        <label>From</label>
+        <md-input v-model="edgefrom"></md-input>
+      </md-input-container>
+      <md-input-container>
+        <label>To</label>
+        <md-input v-model="edgeto"></md-input>
+      </md-input-container>
+      <md-snackbar :md-position="'bottom left'" ref="snackbarAddedge" :md-duration="'2000'">
+        <span>Adding edge</span>
+        <md-button class="md-accent" md-theme="light-blue" @click="$refs.snackbar.close()">Dismiss</md-button>
+      </md-snackbar>
+    </form>
+    <md-button class="md-icon-button md-raised md-accent" @click="addEdge()">
+      <md-icon>add</md-icon>
+    </md-button>
   </div>
 </template>
 
@@ -78,6 +93,7 @@ export default {
         alert('Node already exists');
         return;
       }
+      this.$refs.snackbarAddnode.open();
       store.commit('addnode', id);
       this.$data.nodeid = '';
     },
@@ -91,6 +107,7 @@ export default {
         alert('Edge already exists');
         return;
       }
+      this.$refs.snackbarAddedge.open();
       store.commit('addedge', payload);
       this.$data.edgefrom = '';
       this.$data.edgeto = '';
