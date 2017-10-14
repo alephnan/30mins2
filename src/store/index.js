@@ -25,5 +25,8 @@ export default new Vuex.Store({
     deletenode(state, nodeid) {
       state.nodes = state.nodes.filter(({ id }) => id !== nodeid);
     },
+    deleteedge(state, edge) {
+      state.edges = state.edges.filter(({ from, to }) => from !== edge.from || to !== edge.to);
+    },
   },
 });

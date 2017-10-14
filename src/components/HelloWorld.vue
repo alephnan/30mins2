@@ -5,10 +5,21 @@
     <div id="graph">
     </div>
 
+    <h1>Nodes</h1>
     <ul>
       <li v-for="node in nodes">
         <b>Node Id:</b> {{node.id}}
          <button @click="deleteNode(node)">
+          Delete
+        </button>
+      </li>
+    </ul>
+
+    <h1>Edges</h1>
+    <ul>
+      <li v-for="edge in edges">
+        {{edge.from}} -> {{edge.to}}
+         <button @click="deleteEdge(edge)">
           Delete
         </button>
       </li>
@@ -31,10 +42,16 @@ export default {
     nodes() {
       return store.state.nodes;
     },
+    edges() {
+      return store.state.edges;
+    },
   },
   methods: {
     deleteNode(node) {
       store.commit('deletenode', node.id);
+    },
+    deleteEdge(edge) {
+      store.commit('deleteedge', edge);
     },
     loadGraph() {
       const data = {
