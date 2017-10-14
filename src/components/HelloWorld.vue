@@ -1,56 +1,60 @@
 <template>
   <div class="hello">
-    <!--<h1>{{ msg }}</h1>-->
-    <button v-on:click="loadGraph">Load</button>
-    <div id="graph">
-    </div>
- 
-    <h1>Nodes</h1>
-    <ul>
-      <li v-for="node in nodes">
-        <md-chip md-deletable @delete="deleteNode(node)">{{node.id}}</md-chip>
-      </li>
-    </ul>
-    <h2>Add node</h2>
-    <form novalidate @submit.stop.prevent="submit">
-      <md-input-container>
-        <label>Node Id</label>
-        <md-input v-model="nodeid"></md-input>
-      </md-input-container>
-      <md-button class="md-icon-button md-raised md-accent" @click="addNode()">
-        <md-icon>add </md-icon>
-      </md-button>
-      <md-snackbar :md-position="'bottom left'" ref="snackbarAddnode" :md-duration="'2000'">
-        <span>Adding node</span>
-        <md-button class="md-accent" md-theme="light-blue" @click="$refs.snackbar.close()">Dismiss</md-button>
-      </md-snackbar>
-    </form>
-
-
-    <h1>Edges</h1>
-    <ul>
-      <li v-for="edge in edges">
-        <md-chip md-deletable @delete="deleteEdge(edge)"> {{edge.from}} -> {{edge.to}}</md-chip>
-      </li>
-    </ul>
-    <h2>Add Edge</h2>
-    <form novalidate @submit.stop.prevent="submit">
-      <md-input-container>
-        <label>From</label>
-        <md-input v-model="edgefrom"></md-input>
-      </md-input-container>
-      <md-input-container>
-        <label>To</label>
-        <md-input v-model="edgeto"></md-input>
-      </md-input-container>
-      <md-snackbar :md-position="'bottom left'" ref="snackbarAddedge" :md-duration="'2000'">
-        <span>Adding edge</span>
-        <md-button class="md-accent" md-theme="light-blue" @click="$refs.snackbar.close()">Dismiss</md-button>
-      </md-snackbar>
-    </form>
-    <md-button class="md-icon-button md-raised md-accent" @click="addEdge()">
-      <md-icon>add</md-icon>
-    </md-button>
+    <md-tabs class="md-transparent" md-centered>
+      <md-tab md-icon="share" md-label="Graph">
+        <button v-on:click="loadGraph">Load</button>
+        <div id="graph">
+        </div>
+      </md-tab>
+      <md-tab md-icon="grain" md-label="Nodes" :md-options="{new_badge: 3}">
+        <h1>Nodes</h1>
+        <ul>
+          <li v-for="node in nodes">
+            <md-chip md-deletable @delete="deleteNode(node)">{{node.id}}</md-chip>
+          </li>
+        </ul>
+        <h2>Add node</h2>
+        <form novalidate @submit.stop.prevent="submit">
+          <md-input-container>
+            <label>Node Id</label>
+            <md-input v-model="nodeid"></md-input>
+          </md-input-container>
+          <md-button class="md-icon-button md-raised md-accent" @click="addNode()">
+            <md-icon>add </md-icon>
+          </md-button>
+          <md-snackbar :md-position="'bottom left'" ref="snackbarAddnode" :md-duration="'2000'">
+            <span>Adding node</span>
+            <md-button class="md-accent" md-theme="light-blue" @click="$refs.snackbar.close()">Dismiss</md-button>
+          </md-snackbar>
+        </form>
+      </md-tab>
+      <md-tab md-icon="compare_arrows" md-label="Edges" :md-options="{new_badge: 1}">
+        <h1>Edges</h1>
+        <ul>
+          <li v-for="edge in edges">
+            <md-chip md-deletable @delete="deleteEdge(edge)"> {{edge.from}} -> {{edge.to}}</md-chip>
+          </li>
+        </ul>
+        <h2>Add Edge</h2>
+        <form novalidate @submit.stop.prevent="submit">
+          <md-input-container>
+            <label>From</label>
+            <md-input v-model="edgefrom"></md-input>
+          </md-input-container>
+          <md-input-container>
+            <label>To</label>
+            <md-input v-model="edgeto"></md-input>
+          </md-input-container>
+          <md-snackbar :md-position="'bottom left'" ref="snackbarAddedge" :md-duration="'2000'">
+            <span>Adding edge</span>
+            <md-button class="md-accent" md-theme="light-blue" @click="$refs.snackbar.close()">Dismiss</md-button>
+          </md-snackbar>
+        </form>
+        <md-button class="md-icon-button md-raised md-accent" @click="addEdge()">
+          <md-icon>add</md-icon>
+        </md-button>
+      </md-tab>
+    </md-tabs>
   </div>
 </template>
 
