@@ -13,6 +13,19 @@ import { store } from './store';
 
 Vue.use(VueMaterial);
 
+Vue.material.registerTheme({
+  default: {
+    primary: 'blue',
+    accent: 'red',
+    warn: 'red',
+    background: 'white',
+  },
+  dark: {
+    primary: 'white',
+    background: 'grey',
+  },
+});
+
 export default {
   name: 'app',
   store,
@@ -23,12 +36,4 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

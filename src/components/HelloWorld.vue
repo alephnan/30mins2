@@ -1,5 +1,24 @@
 <template>
   <div class="hello">
+    <md-toolbar>
+      <md-button class="md-icon-button" @click="toggleLeftSidenav">
+        <md-icon>menu</md-icon>
+      </md-button>
+      <h2 class="md-title" style="flex: 1">Graph Visualization</h2>
+    </md-toolbar>
+
+    <md-sidenav class="md-left" ref="leftSidenav" @open="open('Left')" @close="close('Left')">
+      <md-toolbar>
+        <div class="md-toolbar-container">
+          <h3 class="md-title">Switch Theme</h3>
+        </div>
+      </md-toolbar>
+      <md-list>
+        <md-list-item><span @click="loadTheme('default')">Default</span></md-list-item>
+        <md-list-item><span @click="loadTheme('dark')">Dark</span></md-list-item>
+      </md-list>
+    </md-sidenav>
+
     <md-tabs class="md-transparent" md-centered>
       <md-tab md-icon="share" md-label="Graph">
         <div id="graph">
@@ -101,6 +120,9 @@ export default {
     },
   },
   methods: {
+    toggleLeftSidenav() {
+      this.$refs.leftSidenav.toggle();
+    },
     addNode() {
       const id = this.$data.nodeid;
       if (store.state.nodes[id]) {
@@ -146,6 +168,9 @@ export default {
       const network = new vis.Network(container, data, options);
       console.log(network);
       store.commit('updatedGraph');
+    },
+    loadTheme(theme) {
+      this.$material.setCurrentTheme(theme);
     },
   },
 };
